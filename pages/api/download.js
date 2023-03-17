@@ -16,7 +16,7 @@ async function fetchDataAsStream(url, payload, apiKey, signal) {
   return response.body;
 }
 
-export default async function transformStreamToFile(stream, fileName, mimeType = 'application/octet-stream') {
+export default async function transformStreamToFile(stream, fileName, mimeType = 'application/json') {
   const reader = stream.getReader();
   const chunks = [];
 
