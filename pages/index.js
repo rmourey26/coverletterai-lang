@@ -7,8 +7,8 @@ import createFileFromText from './api/download'
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Home() {
-const fileName = 'chatgpt_response.txt';
-const mimeType = 'text/plain';
+  const fileName = 'chatgpt_response.txt';
+  const mimeType = 'text/plain';
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
@@ -61,7 +61,7 @@ const mimeType = 'text/plain';
     setUserInput("");
 
     const data = await response.json();
-    const text = await response.choices[0].text;
+    const text = await response['choices'][0]['text'];
     const file = createFileFromText(text, fileName, mimeType)
 
     // Preview file
