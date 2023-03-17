@@ -150,7 +150,7 @@ const mimeType = 'text/plain';
                 type="text"
                 id="userInput"
                 name="userInput"
-                placeholder={loading ? "Waiting for response..." : "Type your question..."}
+                placeholder={loading ? "Waiting for response..." : "Type your job title..."}
                 value={userInput}
                 onChange={e => setUserInput(e.target.value)}
                 className={styles.textarea}
