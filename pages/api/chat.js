@@ -13,7 +13,6 @@ export default async function(req, res) {
     // You need early access to GPT-4, otherwise use "gpt-3.5-turbo"
     model: "gpt-3.5-turbo",
     messages: [{ "role": "system", "content": "You generate cover letters for job applications." }].concat(req.body.messages),
-    stream: true,
   });
   res.status(200).json({ result: completion.data.choices[0].message })
 
