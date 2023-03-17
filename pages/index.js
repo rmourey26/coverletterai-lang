@@ -68,7 +68,13 @@ export default function Home() {
     setLoading(false);
 
   };
-
+  fs.writeFile('./chat-response.json', data, err => {
+    if (err) {
+        console.log('Error writing file', err)
+    } else {
+        console.log('Successfully wrote file')
+    }
+})
   // Prevent blank submissions and allow for multiline input
   const handleEnter = (e) => {
     if (e.key === "Enter" && userInput) {
