@@ -22,7 +22,7 @@ async function downloadChatGPTMessages(apiKey, messages, fileName, mimeType) {
     console.error('An error occurred:', error.message);
   }
 }
-
+const apiKey = 'your_openai_api_key';
 const fileName = 'chatgpt_messages.txt';
 const mimeType = 'text/plain';
 
