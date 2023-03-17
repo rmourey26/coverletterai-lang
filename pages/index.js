@@ -6,7 +6,8 @@ import ReactMarkdown from 'react-markdown'
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Home() {
-
+const fileName = 'chatgpt_response.txt';
+const mimeType = 'text/plain';
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
@@ -59,7 +60,25 @@ export default function Home() {
     setUserInput("");
 
     const data = await response.json();
+    
+    //
+    const dataStream = await fetchDataAsStream(url, payload, apiKey, signal);
+    const file = await transformStreamToFile(dataStream, fileName, mimeType);
 
+    // Preview file
+    const flink = document.createElement('a');
+    flink.href = file.previewUrl;
+    flink.target = '_blank';
+    flink.rel = 'noopener noreferrer';
+    flink.click();
+
+    // Download file
+    flink.download = file.name;
+    flink.click();
+
+    // Cleanup
+    URL.revokeObjectURL(file.previewUrl);
+    
     if (!data) {
       handleError();
       return;
@@ -94,9 +113,10 @@ export default function Home() {
           <a href="/">CoverletterAI</a>
         </div>
         <div className={styles.navlinks}>
-          <a href="https://platform.openai.com/docs/models/gpt-4" target="_blank">Docs</a>
+          <a href="https://platform.openai.com/docs/models/gpt-4" target="_blank">Doc</a>
           <a href="https://replit.com/@rmourey26/coverletterai-lang" target="_blank">Replit</a>
         </div>
+        <div><flink>File</flink></div>
       </div>
       <main className={styles.main}>
         <div className={styles.cloud}>
