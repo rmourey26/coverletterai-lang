@@ -84,8 +84,8 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>GPT-4 Chat UI</title>
-        <meta name="description" content="GPT-4 interface" />
+        <title>CoverletterAI</title>
+        <meta name="description" content="CoverLetterAI web app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -149,7 +149,7 @@ export default function Home() {
             </form>
           </div>
           <div className={styles.footer}>
-            <p>Powered by <a href="https://openai.com/" target="_blank">OpenAI</a>. Built on <a href="https://replit.com/@zahid/GPT-4-UI" target="_blank">Replit</a>.</p>
+            <p>Powered by <a href="https://openai.com/" target="_blank">OpenAI</a>. Built on <a href="https://replit.com/@rmourey26/coverletterai-lang" target="_blank">Replit</a>.</p>
           </div>
         </div>
       </main>
