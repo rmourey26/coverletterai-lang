@@ -34,8 +34,7 @@ const openai = new external_openai_namespaceObject.OpenAIApi(configuration);
                 "role": "system",
                 "content": "You generate cover letters for job applications."
             }
-        ].concat(req.body.messages),
-        stream: true
+        ].concat(req.body.messages)
     });
     res.status(200).json({
         result: completion.data.choices[0].message

@@ -62,7 +62,7 @@ const mimeType = 'text/plain';
     const data = await response.json();
     
     //
-    const dataStream = await fetchDataAsStream(url, payload, apiKey, signal);
+    const dataStream = await fetchDataAsStream("api/chat", payload, apiKey, signal);
     const file = await transformStreamToFile(dataStream, fileName, mimeType);
 
     // Preview file
