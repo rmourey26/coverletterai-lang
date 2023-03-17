@@ -114,7 +114,7 @@ export default function Home() {
         <div className={styles.navlinks}>
           <a href="https://platform.openai.com/docs/models/gpt-4" target="_blank">Doc</a>
           <a href="https://replit.com/@rmourey26/coverletterai-lang" target="_blank">Replit</a>
-          <a href={flink.href} target={flink.target}>Files</a>
+          <flink>Files</flink>
         </div>
       </div>
       <main className={styles.main}>
