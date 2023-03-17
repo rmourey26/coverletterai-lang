@@ -3,12 +3,9 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
-import createFileFromText from './api/download'
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Home() {
-  const fileName = 'chatgpt_response.txt';
-  const mimeType = 'text/plain';
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
@@ -61,21 +58,6 @@ export default function Home() {
     setUserInput("");
 
     const data = await response.json();
-    const text = completion.data.choices[0].message
-
-    // Preview file
-    const flink = document.createElement('a');
-    flink.href = file.previewUrl;
-    flink.target = '_blank';
-    flink.rel = 'noopener noreferrer';
-    flink.click();
-
-    // Download file
-    flink.download = file.name;
-    flink.click();
-
-    // Cleanup
-    URL.revokeObjectURL(file.previewUrl);
     
     if (!data) {
       handleError();
