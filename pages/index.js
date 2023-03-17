@@ -62,8 +62,8 @@ const mimeType = 'text/plain';
     const data = await response.json();
     
     //
-    const dataStream = await fetchDataAsStream("api/chat", payload, apiKey, signal);
-    const file = await transformStreamToFile(dataStream, fileName, mimeType);
+  
+    const file = await transformDataToFile(response, fileName, mimeType);
 
     // Preview file
     const flink = document.createElement('a');

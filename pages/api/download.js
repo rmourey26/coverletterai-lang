@@ -1,23 +1,5 @@
-async function fetchDataAsStream(url, payload, apiKey, signal) {
-  const response = await fetch("api/chat", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify(payload),
-    signal,
-  });
-
-  if (!response.ok) {
-    throw new Error(`Error fetching data: ${response.statusText}`);
-  }
-
-  return response.body;
-}
-
-export default async function transformStreamToFile(stream, fileName, mimeType = 'application/json') {
-  const reader = stream.getReader();
+export default async function transformDataToFile(data, fileName, mimeType = 'application/json') {
+  const reader = data.getReader();
   const chunks = [];
 
   while (true) {
