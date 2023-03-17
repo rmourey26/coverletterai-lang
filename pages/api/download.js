@@ -1,5 +1,5 @@
-export default async function transformDataToFile(data, fileName, mimeType = 'application/json') {
-  const reader = data.getReader();
+export default async function transformDataToFile(datum, fileName, mimeType = 'application/json') {
+  const reader = datum.getReader();
   const chunks = [];
 
   while (true) {
