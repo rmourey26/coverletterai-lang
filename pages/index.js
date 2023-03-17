@@ -61,7 +61,7 @@ export default function Home() {
     setUserInput("");
 
     const data = await response.json();
-    const text = data.choices[0].message
+    const text = completion.data.choices[0].message
     const file = createFileFromText(text, fileName, mimeType)
 
     // Preview file

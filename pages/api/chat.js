@@ -15,5 +15,5 @@ export default async function(req, res) {
     messages: [{ "role": "system", "content": "You generate cover letters for job applications." }].concat(req.body.messages),
   });
   res.status(200).json({ result: completion.data.choices[0].message })
-
+console.log(completion.data.choices[0].message);
 }
