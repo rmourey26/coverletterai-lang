@@ -3,6 +3,7 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
+import createFileFromText from './api/download'
 import CircularProgress from '@mui/material/CircularProgress';
 
 export default function Home() {
@@ -60,10 +61,8 @@ const mimeType = 'text/plain';
     setUserInput("");
 
     const data = await response.json();
-    
-    //
-  
-    const file = await transformDataToFile(response, fileName, mimeType);
+    const text = await response.choices[0].text;
+    const file = createFileFromText(text, fileName, mimeType)
 
     // Preview file
     const flink = document.createElement('a');
