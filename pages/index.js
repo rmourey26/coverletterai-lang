@@ -62,7 +62,6 @@ export default function Home() {
 
     const data = await response.json();
     const text = completion.data.choices[0].message
-    const file = createFileFromText(text, fileName, mimeType)
 
     // Preview file
     const flink = document.createElement('a');
