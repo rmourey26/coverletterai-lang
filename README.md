@@ -1,6 +1,5 @@
-## GPT-4 Chatbot UI
+## CoverletterAI
 
-Build your own GPT-4 chatbot frontend with this open source Next.js template! Simply add your OpenAI API key as `OPENAI_API_KEY` and you're good to go!
 
 Don't have early access to GPT-4? Replace `gpt-4` with `gpt-3.5-turbo` in `pages/api/chat.js`.
 
