@@ -14,6 +14,8 @@ const knex = require("knex")({
   // Create a demo table called "users"
   await knex.schema.createTable("users", (table) => {
     table.increments("id");
+    table.specificType('fulltext', 'tsvector'); // full text index for your reference
+    table.index('fulltext', null, 'gin');
     table.string("username");
     table.string("email");
     table.string("jobtitle")
