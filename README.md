@@ -1,4 +1,4 @@
-## CoverletterAI
+##  CoverletterAI
 
 
 Don't have early access to GPT-4? Replace `gpt-4` with `gpt-3.5-turbo` in `pages/api/chat.js`.
@@ -7,7 +7,7 @@ Don't have early access to GPT-4? Replace `gpt-4` with `gpt-3.5-turbo` in `pages
 
 Hit the run button to start the development server.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+You  can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on `/api/chat`. This endpoint can be edited in `pages/api/chat.js`.
 

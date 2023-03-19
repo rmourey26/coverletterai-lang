@@ -39,6 +39,7 @@ const openai = new external_openai_namespaceObject.OpenAIApi(configuration);
     res.status(200).json({
         result: completion.data.choices[0].message
     });
+    console.log(completion.data.choices[0].message);
 }
 
 
