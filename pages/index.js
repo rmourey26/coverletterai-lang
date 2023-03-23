@@ -4,16 +4,23 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import CircularProgress from '@mui/material/CircularProgress';
+import { saveAs } from 'file-saver';
+import MarkdownToTxt from 'markdown-to-txt';
+
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
-    {role: "assistant", content: "Hi, there! What job are you applying for?"}
+    {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter"}
+    ]);
+  const [letters, setLetters] = useState([
+    {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter"}
     ]);
 
       const messageListRef = useRef(null);
       const textAreaRef = useRef(null);
+      const letterRef = useRef(null);
 
   // Auto scroll chat to bottom
   useEffect(() => {
@@ -29,6 +36,7 @@ export default function Home() {
   // Handle errors
   const handleError = () => {
     setMessages((prevMessages) => [...prevMessages, { role: "assistant", content: "Oops! There seems to be an error. Please try again." }]);
+    setLetters((prevLetters) => [...prevLetters, { role: "assistant", content: "Oops! There seems to be an error. Please try again." }]);
     setLoading(false);
     setUserInput("");
   }
@@ -44,6 +52,7 @@ export default function Home() {
     setLoading(true);
     const context = [...messages, { role: "user", content: userInput }];
     setMessages(context);
+    setLetters(context);
 
     // Send chat history to API
     const response = await fetch("/api/chat", {
@@ -51,7 +60,7 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ messages: context }),
+      body: JSON.stringify({ messages: context}),
     });
 
     // Reset user input
@@ -63,10 +72,25 @@ export default function Home() {
       handleError();
       return;
     }
-
+    
     setMessages((prevMessages) => [...prevMessages, { role: "assistant", content: data.result.content }]);
+    
+    
+    setLetters((prevLetters) => [...prevLetters, { role: "assistant", content: data.result.content }]);
+
     setLoading(false);
 
+    const converter = new MarkdownToTxt();
+    const text = converter.parse(data.markdown);
+    const fileName = "file.txt"
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, fileName);
+    element.href = URL.createObjectURL(fileName);
+    element.download = fileName;
+    document.body.appendChild(element);
+    document.getElementById("cltag").href=fileName;
+    URL.revokeObjectURL(element.href);
+      
   };
   // Prevent blank submissions and allow for multiline input
   const handleEnter = (e) => {
@@ -82,19 +106,19 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>CoverletterAI</title>
-        <meta name="description" content="CoverLetterAI web app" />
+        <title>coverletterAI</title>
+        <meta name="description" content="coverletter AI web app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.topnav}>
         <div className={styles.navlogo}>
-          <a href="/">CoverletterAI</a>
+          <a href="https://coverletterai.ai">coverletterAI</a>
         </div>
         <div className={styles.navlinks}>
           <a href="https://platform.openai.com/docs/models/gpt-4" target="_blank">Doc</a>
           <a href="https://replit.com/@rmourey26/coverletterai-lang" target="_blank">Replit</a>
-          <flink>Files</flink>
+          <a href="/file.txt" id="cltag" download="/file.txt">Download</a>
         </div>
       </div>
       <main className={styles.main}>
@@ -105,10 +129,11 @@ export default function Home() {
                 // The latest message sent by the user will be animated while waiting for a response
                 <div key={index} className={message.role === "user" && loading && index === messages.length - 1 ? styles.usermessagewaiting : message.role === "assistant" ? styles.apimessage : styles.usermessage}>
                   {/* Display the correct icon depending on the message type */}
-                  {message.role === "assistant" ? <Image src="/openai.png" alt="AI" width="30" height="30" className={styles.boticon} priority={true} /> : <Image src="/usericon.png" alt="Me" width="30" height="30" className={styles.usericon} priority={true} />}
+                  {message.role === "assistant" ? <Image src="/writingIcon.png" alt="AI" width="30" height="30" className={styles.boticon} priority={true} /> : <Image src="/usericon.png" alt="Me" width="30" height="30" className={styles.usericon} priority={true} />}
                   <div className={styles.markdownanswer}>
                     {/* Messages are being rendered in Markdown format */}
                     <ReactMarkdown linkTarget={"_blank"}>{message.content}</ReactMarkdown>
+
                   </div>
                 </div>
               )
@@ -129,7 +154,7 @@ export default function Home() {
                 type="text"
                 id="userInput"
                 name="userInput"
-                placeholder={loading ? "Waiting for response..." : "Type your job title..."}
+                placeholder={loading ? "Waiting for response..." : "Type your job title, description, and experience..."}
                 value={userInput}
                 onChange={e => setUserInput(e.target.value)}
                 className={styles.textarea}
@@ -147,8 +172,9 @@ export default function Home() {
               </button>
             </form>
           </div>
+          
           <div className={styles.footer}>
-            <p>Powered by <a href="https://openai.com/" target="_blank">OpenAI</a>. Built on <a href="https://replit.com/@rmourey26/coverletterai-lang" target="_blank">Replit</a>.</p>
+            <p> Built by <a href="https://coverletterai.ai" target="_blank">coverletter AI</a>.</p>
           </div>
         </div>
       </main>

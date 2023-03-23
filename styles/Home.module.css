@@ -13,9 +13,14 @@
 .header p {
   text-align: center;
 }
+.btn {
+  float: right;
+}
+
+
 
 .topnav {
-  background-color: snow;
+  background: radial-gradient(50% 50% at 50% 50%, #ED3D63 0%, #EC355D 100%);
   border-bottom: 1px solid #30373d;
   display: flex;
   justify-content: space-between;
@@ -122,6 +127,11 @@
   border-radius: 0.5rem;
 }
 
+.letterlist {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.5;
+}
 .messagelistloading {
   display: flex;
   width: 100%;
@@ -200,6 +210,33 @@
 }
 
 .markdownanswer h1, .markdownanswer h2, .markdownanswer h3 {
+  font-size: inherit;
+}
+
+.letteranswer {
+  line-height: 1.75;
+}
+
+.letternanswer a:hover {
+  opacity: 0.8;
+}
+
+.letteranswer a {
+  color: #16bed7;
+  font-weight: 500;
+}
+
+.letteranswer code {
+  color: #15cb19;
+  font-weight: 500;
+  white-space: pre-wrap !important;
+}
+
+.letteranswer ol, .letteranswer ul {
+  margin: 1rem;
+}
+
+.letteranswer h1, .letternanswer h2, .lettanswer h3 {
   font-size: inherit;
 }
 

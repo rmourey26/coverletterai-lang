@@ -14,8 +14,9 @@ body {
 }
 
 body {
-  color: rgb(27, 40, 56);
-  background: #cdf0ee;
+  color: #161B7F;
+
+  background: #F5F5F5;
 }
 
 a {
@@ -26,3 +27,19 @@ a {
 a:hover {
   opacity: 0.8;
 }
+
+::-webkit-scrollbar {
+     width: 10px;
+ }
+
+::-webkit-scrollbar-track {
+     background-color: rgba (0, 225, 255, 0.92);
+     -webkit-border-radius: 15px;
+     border-radius: 15px;
+ }
+
+ .gray::-webkit-scrollbar-thumb {
+     -webkit-border-radius: 20px;
+     border-radius: 15px;
+     background: rgb(54, 49, 49);
+ }
