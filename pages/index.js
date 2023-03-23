@@ -4,18 +4,16 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import CircularProgress from '@mui/material/CircularProgress';
-import { saveAs } from 'file-saver';
-import MarkdownToTxt from 'markdown-to-txt';
 
 
 export default function Home() {
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
-    {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter"}
+    {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter!"}
     ]);
   const [letters, setLetters] = useState([
-    {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter"}
+    {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter!"}
     ]);
 
       const messageListRef = useRef(null);
@@ -79,17 +77,6 @@ export default function Home() {
     setLetters((prevLetters) => [...prevLetters, { role: "assistant", content: data.result.content }]);
 
     setLoading(false);
-
-    const converter = new MarkdownToTxt();
-    const text = converter.parse(data.markdown);
-    const fileName = "file.txt"
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-    saveAs(blob, fileName);
-    element.href = URL.createObjectURL(fileName);
-    element.download = fileName;
-    document.body.appendChild(element);
-    document.getElementById("cltag").href=fileName;
-    URL.revokeObjectURL(element.href);
       
   };
   // Prevent blank submissions and allow for multiline input
@@ -118,7 +105,6 @@ export default function Home() {
         <div className={styles.navlinks}>
           <a href="https://platform.openai.com/docs/models/gpt-4" target="_blank">Doc</a>
           <a href="https://replit.com/@rmourey26/coverletterai-lang" target="_blank">Replit</a>
-          <a href="/file.txt" id="cltag" download="/file.txt">Download</a>
         </div>
       </div>
       <main className={styles.main}>
