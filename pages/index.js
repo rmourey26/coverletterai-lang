@@ -7,7 +7,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 export default function Home() {
+
+  
   const [userInput, setUserInput] = useState("");
+ 
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
     {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter!"}
@@ -15,7 +18,7 @@ export default function Home() {
   const [letters, setLetters] = useState([
     {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter!"}
     ]);
-
+  const [letterContent, setLetterContent]= useState('');
       const messageListRef = useRef(null);
       const textAreaRef = useRef(null);
       const letterRef = useRef(null);
@@ -38,15 +41,19 @@ export default function Home() {
     setLoading(false);
     setUserInput("");
   }
-
+  
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // store user message in global message state
+    const userMessage = { role: "user", content: messages };
+
     if (userInput.trim() === "") {
       return;
     }
-
+    
+    
     setLoading(true);
     const context = [...messages, { role: "user", content: userInput }];
     setMessages(context);
@@ -70,15 +77,18 @@ export default function Home() {
       handleError();
       return;
     }
-    
+      
     setMessages((prevMessages) => [...prevMessages, { role: "assistant", content: data.result.content }]);
+
     
     
     setLetters((prevLetters) => [...prevLetters, { role: "assistant", content: data.result.content }]);
 
+    
     setLoading(false);
       
   };
+
   // Prevent blank submissions and allow for multiline input
   const handleEnter = (e) => {
     if (e.key === "Enter" && userInput) {
@@ -105,7 +115,17 @@ export default function Home() {
         <div className={styles.navlinks}>
           <a href="https://platform.openai.com/docs/models/gpt-4" target="_blank">Doc</a>
           <a href="https://replit.com/@rmourey26/coverletterai-lang" target="_blank">Replit</a>
-        </div>
+            
+          </div>
+        <button type="button">
+          <a
+            href={`data:text/json;charset=utf-8,${encodeURIComponent(
+              JSON.stringify({letters}).replace((/(?:^|\n)([*-] .*)/gms, '$1\n'))
+            )}`}
+            download="filename.json"
+          >{`Download Json`}
+            </a>
+ </button>
       </div>
       <main className={styles.main}>
         <div className={styles.cloud}>
@@ -119,9 +139,9 @@ export default function Home() {
                   <div className={styles.markdownanswer}>
                     {/* Messages are being rendered in Markdown format */}
                     <ReactMarkdown linkTarget={"_blank"}>{message.content}</ReactMarkdown>
-
-                  </div>
                 </div>
+                </div>
+                
               )
             })}
           </div>
@@ -158,9 +178,10 @@ export default function Home() {
               </button>
             </form>
           </div>
-          
+          <div> 
+          </div>
           <div className={styles.footer}>
-            <p> Built by <a href="https://coverletterai.ai" target="_blank">coverletter AI</a>.</p>
+            <p> Built by <a href="https://coverletterai.ai" target="_blank">coverletterAI</a>.</p>
           </div>
         </div>
       </main>

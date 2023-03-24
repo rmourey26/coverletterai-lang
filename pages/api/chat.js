@@ -8,6 +8,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
+
 function markdownToPlainText(markdown) {
   // Replace any Markdown-specific syntax with plain text equivalents
   const plainText = JSON.stringify(markdown)
@@ -21,13 +22,26 @@ function markdownToPlainText(markdown) {
 
   return plainText;
 }
+
+global.messages = [
+  {
+    role: "system",
+    content: "You generate cover letters for job applications based on a job title, job description, and brief employment history. Additionally, you never ask the customer to upload or provide any photos as our website has no means of doing so at this time. Also, do not mention that you are a bot."
+  },
+];
 export default async function(req, res) {
   const completion = await openai.createChatCompletion({
     // You need early access to GPT-4, otherwise use "gpt-3.5-turbo"
     model: "gpt-3.5-turbo",
-    messages: [{ "role": "system", "content": "You generate cover letters for job applications based on a job title, job description, and brief employment history." }].concat(req.body.messages),
+    messages: [{ "role": "system", "content": "You generate cover letters for job applications based on a job title, job description, and brief employment history. Additionally, you never ask the customer to upload or provide any photos as our website has no means of doing so at this time. Also, do not mention that you are a bot." }].concat(req.body.messages),
   });
   res.status(200).json({ result: completion.data.choices[0].message })
-  console.log(markdownToPlainText((completion.data.choices[0].message)))
-  
+  console.log(markdownToPlainText(({ result: completion.data.choices[0].message })))
+
 };
+
+
+
+
+
+

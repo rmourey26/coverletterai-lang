@@ -36,6 +36,12 @@ function markdownToPlainText(markdown) {
     .replace(/\[(.*?)\]\((.*?)\)/gms, "$1 ($2)"); // links
     return plainText;
 }
+global.messages = [
+    {
+        role: "system",
+        content: "You generate cover letters for job applications based on a job title, job description, and brief employment history. Additionally, you never ask the customer to upload or provide any photos as our website has no means of doing so at this time. Also, do not mention that you are a bot."
+    }
+];
 /* harmony default export */ async function chat(req, res) {
     const completion = await openai.createChatCompletion({
         // You need early access to GPT-4, otherwise use "gpt-3.5-turbo"
@@ -43,14 +49,16 @@ function markdownToPlainText(markdown) {
         messages: [
             {
                 "role": "system",
-                "content": "You generate cover letters for job applications based on a job title, job description, and brief employment history."
+                "content": "You generate cover letters for job applications based on a job title, job description, and brief employment history. Additionally, you never ask the customer to upload or provide any photos as our website has no means of doing so at this time. Also, do not mention that you are a bot."
             }
         ].concat(req.body.messages)
     });
     res.status(200).json({
         result: completion.data.choices[0].message
     });
-    console.log(markdownToPlainText(completion.data.choices[0].message));
+    console.log(markdownToPlainText({
+        result: completion.data.choices[0].message
+    }));
 }
 ;
 

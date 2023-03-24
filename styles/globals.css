@@ -29,17 +29,17 @@ a:hover {
 }
 
 ::-webkit-scrollbar {
-     width: 10px;
+     width: 2px;
  }
 
 ::-webkit-scrollbar-track {
-     background-color: rgba (0, 225, 255, 0.92);
-     -webkit-border-radius: 15px;
-     border-radius: 15px;
+     background-color: rgba (0, 225, 255, 0);
+     -webkit-border-radius: 6px;
+     border-radius: 6px;
  }
 
  .gray::-webkit-scrollbar-thumb {
-     -webkit-border-radius: 20px;
-     border-radius: 15px;
+     -webkit-border-radius: 6px;
+     border-radius: 6px;
      background: rgb(54, 49, 49);
  }
