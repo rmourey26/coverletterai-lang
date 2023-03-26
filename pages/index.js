@@ -46,8 +46,6 @@ export default function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // store user message in global message state
-    const userMessage = { role: "user", content: messages };
 
     if (userInput.trim() === "") {
       return;
@@ -72,6 +70,7 @@ export default function Home() {
     setUserInput("");
 
     const data = await response.json();
+    const ldata  = await response.json();
     
     if (!data) {
       handleError();
@@ -82,7 +81,7 @@ export default function Home() {
 
     
     
-    setLetters((prevLetters) => [...prevLetters, { role: "assistant", content: data.result.content }]);
+    setLetters((prevLetters) => [...prevLetters, { role: "assistant", content: ldata.result.content }]);
 
     
     setLoading(false);
@@ -110,7 +109,10 @@ export default function Home() {
       </Head>
       <div className={styles.topnav}>
         <div className={styles.navlogo}>
-          <a href="https://coverletterai.ai">coverletterAI</a>
+          <a href="https://coverletterai.ai"
+            
+            >
+              coverletterAI</a>
         </div>
         <div className={styles.navlinks}>
           <a href="https://platform.openai.com/docs/models/gpt-4" target="_blank">Doc</a>
@@ -135,11 +137,14 @@ export default function Home() {
                 // The latest message sent by the user will be animated while waiting for a response
                 <div key={index} className={message.role === "user" && loading && index === messages.length - 1 ? styles.usermessagewaiting : message.role === "assistant" ? styles.apimessage : styles.usermessage}>
                   {/* Display the correct icon depending on the message type */}
-                  {message.role === "assistant" ? <Image src="/writingIcon.png" alt="AI" width="30" height="30" className={styles.boticon} priority={true} /> : <Image src="/usericon.png" alt="Me" width="30" height="30" className={styles.usericon} priority={true} />}
+                  {message.role === "assistant" ? <Image src="/2.1.png" alt="AI" width="30" height="30" className={styles.boticon} priority={true} /> : <Image src="/usericon.png" alt="Me" width="30" height="30" className={styles.usericon} priority={true} />}
                   <div className={styles.markdownanswer}>
                     {/* Messages are being rendered in Markdown format */}
                     <ReactMarkdown linkTarget={"_blank"}>{message.content}</ReactMarkdown>
                 </div>
+                  <div>
+                  
+                  </div>
                 </div>
                 
               )

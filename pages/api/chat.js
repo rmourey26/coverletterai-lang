@@ -30,14 +30,22 @@ global.messages = [
   },
 ];
 export default async function(req, res) {
+  const requestMethod = req.method;
   const completion = await openai.createChatCompletion({
     // You need early access to GPT-4, otherwise use "gpt-3.5-turbo"
     model: "gpt-3.5-turbo",
     messages: [{ "role": "system", "content": "You generate cover letters for job applications based on a job title, job description, and brief employment history. Additionally, you never ask the customer to upload or provide any photos as our website has no means of doing so at this time. Also, do not mention that you are a bot." }].concat(req.body.messages),
   });
+  switch (requestMethod) {
+    case 'GET':
+res.status(200).JSON.stringify(completion.data.choices[0].message)
+    default:
   res.status(200).json({ result: completion.data.choices[0].message })
+  
+      
   console.log(markdownToPlainText(({ result: completion.data.choices[0].message })))
 
+}
 };
 
 

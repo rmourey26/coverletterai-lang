@@ -43,6 +43,7 @@ global.messages = [
     }
 ];
 /* harmony default export */ async function chat(req, res) {
+    const requestMethod = req.method;
     const completion = await openai.createChatCompletion({
         // You need early access to GPT-4, otherwise use "gpt-3.5-turbo"
         model: "gpt-3.5-turbo",
@@ -53,12 +54,17 @@ global.messages = [
             }
         ].concat(req.body.messages)
     });
-    res.status(200).json({
-        result: completion.data.choices[0].message
-    });
-    console.log(markdownToPlainText({
-        result: completion.data.choices[0].message
-    }));
+    switch(requestMethod){
+        case "GET":
+            res.status(200).JSON.stringify(completion.data.choices[0].message);
+        default:
+            res.status(200).json({
+                result: completion.data.choices[0].message
+            });
+            console.log(markdownToPlainText({
+                result: completion.data.choices[0].message
+            }));
+    }
 }
 ;
 

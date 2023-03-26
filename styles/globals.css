@@ -14,7 +14,7 @@ body {
 }
 
 body {
-  color: #161B7F;
+  color: #3241a6aa8;
 
   background: #F5F5F5;
 }
@@ -25,11 +25,11 @@ a {
 }
 
 a:hover {
-  opacity: 0.8;
+  opacity: 0.5;
 }
 
 ::-webkit-scrollbar {
-     width: 2px;
+     width: 0.05rem;
  }
 
 ::-webkit-scrollbar-track {
