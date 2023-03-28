@@ -15,9 +15,8 @@
 }
 .btn {
   float: right;
+  background-color: #5d2354
 }
-
-
 
 .topnav {
   background: radial-gradient(50% 50% at 50% 50%, #ED3D63 0%, #EC355D 100%);

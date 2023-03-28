@@ -36,15 +36,20 @@ const knex = require("knex")({
   await knex("users")
     .where("username", "alice")
     .update({
-      points: knex.raw("lettercount + 1"),
+      lettercount: knex.raw("lettercount + 1"),
     });
 
   // Get the user
   const user = await knex("users").where("username", "alice").first();
 
+
+const result = await knex.unsafe(req.body)
   // Print the user
   console.log(user);
 
-  // Delete the user
-  await knex("users").where("username", "alice").delete();
+  //* Delete the user
+  // await knex("users").where("username", "alice").delete();
+
+
+
 })();

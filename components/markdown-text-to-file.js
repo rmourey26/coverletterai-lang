@@ -1,4 +1,4 @@
-function markdownToTextFile(markdownContent) {
+export default zfunction markdownToTextFile(markdownContent) {
   // Convert the markdown content to a Blob with UTF-8 encoding
   const fileBlob = new Blob([markdownContent], { type: "text/plain;charset=utf-8" });
 

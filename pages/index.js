@@ -4,24 +4,20 @@ import styles from '../styles/Home.module.css'
 import Image from 'next/image'
 import ReactMarkdown from 'react-markdown'
 import CircularProgress from '@mui/material/CircularProgress';
-
+import DownloadArray from '../pages/download-array.js';
 
 export default function Home() {
 
-  
+  const [content, setContent] = useState([]);
   const [userInput, setUserInput] = useState("");
  
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([
     {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter!"}
     ]);
-  const [letters, setLetters] = useState([
-    {role: "assistant", content: "Hi, there! Simply type the job title, job description, and a few details about your experience and I'll respond with your cover letter!"}
-    ]);
-  const [letterContent, setLetterContent]= useState('');
+  
       const messageListRef = useRef(null);
       const textAreaRef = useRef(null);
-      const letterRef = useRef(null);
 
   // Auto scroll chat to bottom
   useEffect(() => {
@@ -37,7 +33,6 @@ export default function Home() {
   // Handle errors
   const handleError = () => {
     setMessages((prevMessages) => [...prevMessages, { role: "assistant", content: "Oops! There seems to be an error. Please try again." }]);
-    setLetters((prevLetters) => [...prevLetters, { role: "assistant", content: "Oops! There seems to be an error. Please try again." }]);
     setLoading(false);
     setUserInput("");
   }
@@ -70,7 +65,7 @@ export default function Home() {
     setUserInput("");
 
     const data = await response.json();
-    const ldata  = await response.json();
+  
     
     if (!data) {
       handleError();
@@ -80,13 +75,10 @@ export default function Home() {
     setMessages((prevMessages) => [...prevMessages, { role: "assistant", content: data.result.content }]);
 
     
-    
-    setLetters((prevLetters) => [...prevLetters, { role: "assistant", content: ldata.result.content }]);
-
-    
     setLoading(false);
       
   };
+  
 
   // Prevent blank submissions and allow for multiline input
   const handleEnter = (e) => {
@@ -98,6 +90,8 @@ export default function Home() {
       e.preventDefault();
     }
   };
+
+  
 
   return (
     <>
@@ -119,15 +113,6 @@ export default function Home() {
           <a href="https://replit.com/@rmourey26/coverletterai-lang" target="_blank">Replit</a>
             
           </div>
-        <button type="button">
-          <a
-            href={`data:text/json;charset=utf-8,${encodeURIComponent(
-              JSON.stringify({letters}).replace((/(?:^|\n)([*-] .*)/gms, '$1\n'))
-            )}`}
-            download="filename.json"
-          >{`Download Json`}
-            </a>
- </button>
       </div>
       <main className={styles.main}>
         <div className={styles.cloud}>
@@ -140,12 +125,17 @@ export default function Home() {
                   {message.role === "assistant" ? <Image src="/2.1.png" alt="AI" width="30" height="30" className={styles.boticon} priority={true} /> : <Image src="/usericon.png" alt="Me" width="30" height="30" className={styles.usericon} priority={true} />}
                   <div className={styles.markdownanswer}>
                     {/* Messages are being rendered in Markdown format */}
-                    <ReactMarkdown linkTarget={"_blank"}>{message.content}</ReactMarkdown>
-                </div>
-                  <div>
+                        <ReactMarkdown linkTarget={"_blank"}> 
+                       {message.content}</ReactMarkdown>
+                    
+          
+                     </div>
                   
                   </div>
-                </div>
+                
+      
+                    
+                  
                 
               )
             })}
@@ -184,6 +174,11 @@ export default function Home() {
             </form>
           </div>
           <div> 
+          </div>
+          <div>
+            <div>
+              <DownloadArray />
+              </div>
           </div>
           <div className={styles.footer}>
             <p> Built by <a href="https://coverletterai.ai" target="_blank">coverletterAI</a>.</p>

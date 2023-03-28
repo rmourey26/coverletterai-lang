@@ -38,13 +38,13 @@ export default async function(req, res) {
   });
   switch (requestMethod) {
     case 'GET':
-res.status(200).JSON.stringify(completion.data.choices[0].message)
+      res.status(200).markdownToPlainText(completion.data.choices[0].message)
     default:
-  res.status(200).json({ result: completion.data.choices[0].message })
+      res.status(200).json({ result: completion.data.choices[0].message })
   
       
-  console.log(markdownToPlainText(({ result: completion.data.choices[0].message })))
-
+  console.log(markdownToPlainText(({ result:completion.data.choices[0].message }))+"that was markdown")
+  console.log(JSON.stringify(completion.data.choices[0].message)+"that was json stringified")
 }
 };
 
