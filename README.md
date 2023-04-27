@@ -26,4 +26,9 @@ To make your next App run smoothly in production make sure to [turn this Repl to
 
 You can also produce a production build by running `npm run build` and [changing the run command](https://docs.replit.com/programming-ide/configuring-repl#run) to `npm run start`.
 
-https://cr-skills-chart-widget.azurewebsites.net/api/api?username=YOUR_USERNAME
+<p align="center" dir="auto">
+
+    <a target="_blank" rel="noopener noreferrer" href="https://cr-skills-chart-widget.azurewebsites.net/api/api?username=YOUR_USERNAME" style="max-width: 100%;"></a>
+
+</p>
+
