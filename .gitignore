@@ -1,2 +1,5 @@
 node_modules
+keys.json
+.pem
 .env
+.next

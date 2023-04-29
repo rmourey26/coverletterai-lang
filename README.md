@@ -1,5 +1,6 @@
 ##  coverletter AI
 
+## DEVELOPMENT REPO ##
 
 Don't have early access to GPT-4? Replace `gpt-4` with `gpt-3.5-turbo` in `pages/api/chat.js`.
 
